@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/>
+<title>simple analog clock - egclockjs</title>
+<meta property="og:image" content="simpleanalogclock.png">
+<link rel="apple-touch-icon" href="simpleanalogclock.png"/>
+<script src="../egclockjs.js"></script>
+<script>"use strict"
+const clockmain = function(g, year, mon, day, h, m, s, ms) {
+	const ox = 500
+	const oy = 500
+	const drawHand = function(pos, len, size) {
+		const th = pos * 2 * Math.PI - Math.PI / 2
+		var x = ox + Math.cos(th) * len
+		var y = oy + Math.sin(th) * len
+		g.drawLine(ox, oy, x, y)
+		x = ox + Math.cos(th) * (len - size * 2)
+		y = oy + Math.sin(th) * (len - size * 2)
+		g.fillCircle(x, y, size)
+	}
+
+	const hue = s / 60 * 360
+	const col = hsv2rgb(hue, .5, .5)
+	g.setColor(col[0], col[1], col[2])
+//	g.setColor(255, 0, 0) // 赤固定
+
+	g.fillCircle(ox, oy, 10)
+	drawHand(h % 12 / 12, 300, 20)
+	drawHand(m / 60, 350, 20)
+	drawHand(s / 60, 400, 10)
+	drawHand(ms / 1000, 450, 10)
+}
+</script>
+</head></html>

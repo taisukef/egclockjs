@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/>
+<title>simple digital clock - egclockjs</title>
+<meta property="og:image" content="simpledigitalclock.png">
+<link rel="apple-touch-icon" href="simpledigitalclock.png"/>
+<script src="../egclockjs.js"></script>
+<script>"use strict"
+const clockmain = function(g, year, mon, day, h, m, s, ms) {
+	g.setColor(255, 0, 0)
+	g.fillCircle(500, 500, ms / Math.sqrt(2))
+
+	g.setColor(255, 255, 255)
+	g.fillTextCenter(fixnum(h, 2) + ":" + fixnum(m, 2) + ":" + fixnum(s, 2), 500, 500, 200)
+}
+</script>
+</head></html>
