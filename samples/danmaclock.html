@@ -1,0 +1,42 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/>
+<title>danmaclock - egclockjs</title>
+<meta property="og:image" content="danmaclock.png">
+<link rel="apple-touch-icon" href="danmaclock.png"/>
+<script src="https://taisukef.github.io/egclockjs/egclockjs.js"></script>
+<script>"use strict"
+const clockmain = function(g, year, mon, day, h, m, s, ms) {
+	g.setColor(0, 0, 0)
+	g.fillRect(0, 0, 1000, 1000)
+
+	var delay = 0.003
+	var startdeg = m / 60 * 360
+	var enddeg = 360 * 2 + (h / 12 * 360)
+	var ndeg = enddeg - startdeg
+	var ntama = Math.floor(ndeg / 10)
+
+	const bx = 500
+	const by = 500
+	var t = ms / 1000
+	//t = 0.6
+	//t = t * t
+	//t = 1 - (1 - t) * (1 - t)
+	//t = Math.sin(t * Math.PI / 2)
+
+	const c = 250
+	g.setColor(c, c, c)
+	const len = 800
+	for (var i = 0; i < ntama; i++) {
+		const th = (ndeg / ntama * i + startdeg) / 180 * Math.PI - Math.PI / 2
+		const t2 = t - delay * i
+		if (t2 > 0) {
+			const x = bx + Math.cos(th) * len * t2
+			const y = by + Math.sin(th) * len * t2
+			g.fillCircle(x, y, 15)
+		}
+	}
+
+//	g.setColor(200, 200, 200)
+//	g.fillTextCenter(fixnum(h, 2) + ":" + fixnum(m, 2) + ":" + fixnum(s, 2), 500, 500, 200)
+}
+</script>
+</head></html>
