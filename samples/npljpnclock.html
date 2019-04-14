@@ -1,0 +1,114 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/>
+<title>Nepal-Japan clock - egclockjs</title>
+<meta property="og:image" content="npljpnclock.png">
+<link rel="apple-touch-icon" href="npljpnclock.png"/>
+<script src="https://taisukef.github.io/egclockjs/egclockjs.js"></script>
+<script>"use strict"
+
+const clockmain = function(g, year, mon, day, h, m, s, ms) {
+	let tz = new Date().getTimezoneOffset()
+	// GMT
+	if (tz < 0)
+		tz += 24 * 60
+	h += Math.floor(tz / 60)
+	m += tz % 60
+	if (m >= 60) {
+		m -= 60
+		h++
+	}
+	if (h >= 24) {
+		h -= 24
+	}
+
+	// Japan
+	let tzjpn = 9 * 60
+	let hj = h + Math.floor(tzjpn / 60)
+	let mj = m + tzjpn % 60
+	if (mj >= 60) {
+		mj -= 60
+		hj++
+	}
+	if (hj >= 24) {
+		hj -= 24
+	}
+
+	// Nepal GMT+05:45
+	let tznpl = 5 * 60 + 45
+	let hn = h + Math.floor(tznpl / 60)
+	let mn = m + tznpl % 60
+	if (mn >= 60) {
+		mn -= 60
+		hn++
+	}
+	if (hn >= 24) {
+		hn -= 24
+	}
+	/*
+
+
+
+	const tzjpn = -9 * 60 // new Date("April 14, 2019 23:55:55 GMT+09:00").getTimezoneOffset()
+	let mdif = -tzjpn + tz
+	if (mdif < 0) {
+		mdif += 24 * 60 // ignore day
+	}
+	//	console.log(tz, mdif)
+	*/
+
+	const ox = 500
+	const oy = 500
+	const drawHand = function(pos, len, size) {
+		const th = pos * 2 * Math.PI - Math.PI / 2
+		var x = ox + Math.cos(th) * len
+		var y = oy + Math.sin(th) * len
+		g.drawLine(ox, oy, x, y)
+		x = ox + Math.cos(th) * (len - size * 2)
+		y = oy + Math.sin(th) * (len - size * 2)
+//		g.fillCircle(x, y, size)
+	}
+
+	g.setColor(237, 104, 9)
+	g.fillRect(-500, -500, 2000, 2000)
+
+	/*
+	const hue = s / 60 * 360
+	const col = hsv2rgb(hue, .5, .5)
+	g.setColor(col[0], col[1], col[2])
+	*/
+	g.setColor(178, 0, 21)
+	for (let i = 0; i < 12; i++) {
+		const th = i / 12 * 2 * Math.PI - Math.PI / 2
+		const len = 400
+		const size = 10
+		var x = ox + Math.cos(th) * len
+		var y = oy + Math.sin(th) * len
+		x = ox + Math.cos(th) * (len - size * 2)
+		y = oy + Math.sin(th) * (len - size * 2)
+		g.fillCircle(x, y, size)
+	}
+
+	g.setColor(205, 179, 36)
+	g.fillCircle(ox, oy, 10)
+	g.lineWidth = 20
+	drawHand(hn % 12 / 12, 300, 20)
+	drawHand(mn / 60, 350, 20)
+//	drawHand(s / 60, 400, 10)
+//	drawHand(ms / 1000, 450, 10)
+
+	/*
+	const hue2 = m / 60 * 360
+	const col2 = hsv2rgb(hue2, .5, .5)
+	g.setColor(col2[0], col2[1], col2[2])
+	*/
+	g.setColor(205, 179, 36, .5)
+
+	g.fillCircle(ox, oy, 10)
+	drawHand(hj % 12 / 12, 300, 20)
+	drawHand(mj / 60, 350, 20)
+
+	g.setColor(255, 255, 255, .2)
+	g.fillTextCenter("NPL " + fixnum(hn, 2) + ":" + fixnum(mn, 2) + ":" + fixnum(s, 2), 500, 500 - 250, 150)
+	g.fillTextCenter("JPN " + fixnum(hj, 2) + ":" + fixnum(mj, 2) + ":" + fixnum(s, 2), 500, 500 + 250, 150)
+}
+</script>
+</head></html>
