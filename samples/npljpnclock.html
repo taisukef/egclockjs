@@ -90,7 +90,7 @@ const clockmain = function(g, year, mon, day, h, m, s, ms) {
 	g.setColor(205, 179, 36)
 	g.fillCircle(ox, oy, 10)
 	g.lineWidth = 20
-	drawHand(hn % 12 / 12, 300, 20)
+	drawHand(hn % 12 / 12, 250, 20)
 	drawHand(mn / 60, 350, 20)
 //	drawHand(s / 60, 400, 10)
 //	drawHand(ms / 1000, 450, 10)
@@ -103,7 +103,7 @@ const clockmain = function(g, year, mon, day, h, m, s, ms) {
 	g.setColor(205, 179, 36, .5)
 
 	g.fillCircle(ox, oy, 10)
-	drawHand(hj % 12 / 12, 300, 20)
+	drawHand(hj % 12 / 12, 250, 20)
 	drawHand(mj / 60, 350, 20)
 
 	g.setColor(255, 255, 255, .2)
