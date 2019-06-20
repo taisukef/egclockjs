@@ -20,7 +20,7 @@ const clockmain = function(g, year, mon, day, h, m, s, ms) {
 	const hue = s / 60 * 360
 	const col = hsv2rgb(hue, .5, .5)
 	g.setColor(col[0], col[1], col[2])
-	g.setColor(255, 255, 255) //
+//	g.setColor(255, 255, 255) //
 
 	g.fillCircle(ox, oy, 10)
 	drawHand(h % 12 / 12, 300, 20)
